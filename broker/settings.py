@@ -16,6 +16,11 @@ import os
 import dj_database_url
 from decouple import config
 
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -96,6 +101,13 @@ WSGI_APPLICATION = 'broker.wsgi.application'
 
 AUTH_USER_MODEL = 'app.CustomUser'
 
+# Cloudinary
+cloudinary.config(  
+    cloud_name=config('CLOUDINARY_CLOUD_NAME'),  
+    api_key=config('CLOUDINARY_API_KEY'),  
+    api_secret=config('CLOUDINARY_API_SECRET'),
+)
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': config('CLOUDINARY_API_KEY'),
@@ -106,19 +118,19 @@ CLOUDINARY_STORAGE = {
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         default=config("DATABASE_URL")
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config("DATABASE_URL")
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

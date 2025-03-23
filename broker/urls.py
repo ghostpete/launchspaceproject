@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.conf.urls import handler404
 
 
-admin.site.site_header = "Space Launch Project Administration"
+admin.site.site_header = "Space Launch Project Admin"
 admin.site.site_title = "Space Launch Project Admin Portal"
 admin.site.index_title = "Welcome to Space Launch Project Admin Portal"
 

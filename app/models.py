@@ -12,6 +12,7 @@ import string
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 PAYMENT_TYPES = [
@@ -44,7 +45,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     preferred_currency = models.CharField(max_length=100, blank=True, null=True, default="$")
 
-    profile_image = models.FileField(upload_to="profile/images", blank=True, null=True)
+    profile_image = CloudinaryField(resource_type='raw', blank=True, null=True)
 
     address = models.TextField(blank=True, null=True)  
     city = models.CharField(max_length=100, blank=True, null=True)
@@ -99,10 +100,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     @property
     def get_profile_image_url(self):
         if self.profile_image:
-            if self.profile_image.url.startswith("https"):
-                return self.profile_image.url
-            else:
-                return "http://localhost:8000" + self.profile_image.url
+            return self.profile_image.url
         else:
             # Change this later
             return 'https://res.cloudinary.com/daf9tr3lf/image/upload/v1725024497/undraw_profile_male_oovdba.svg'
@@ -131,11 +129,11 @@ class KYC(models.Model):
     tax_identity_number = models.CharField(max_length=100, blank=True, null=True)
     government_id_type = models.CharField(max_length=100, blank=True, null=True)
     government_id_number = models.CharField(max_length=100, blank=True, null=True)
-    proof_of_employment = models.FileField(upload_to="identity/proof", blank=True, null=True)
-    proof_of_income = models.FileField(upload_to="identity/proof", blank=True, null=True)
-    front_id_image = models.FileField(upload_to="identity/proof", blank=True, null=True)
-    back_id_image = models.FileField(upload_to="identity/proof", blank=True, null=True)
-    image_holding_id = models.FileField(upload_to="identity/proof", blank=True, null=True)
+    proof_of_employment = CloudinaryField(resource_type='raw', blank=True, null=True)
+    proof_of_income = CloudinaryField(resource_type='raw', blank=True, null=True)
+    front_id_image = CloudinaryField(resource_type='raw', blank=True, null=True)
+    back_id_image = CloudinaryField(resource_type='raw', blank=True, null=True)
+    image_holding_id = CloudinaryField(resource_type='raw', blank=True, null=True)
 
 
     def __str__(self):
@@ -177,7 +175,7 @@ class Support(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     subject = models.CharField(max_length=400, blank=True, null=False)
     description = models.TextField(max_length=400, blank=True, null=False)
-    image = models.FileField(upload_to='support/images/', null=True, blank=True)
+    image = CloudinaryField(resource_type='raw', blank=True, null=True)
     status = models.CharField(max_length=400, blank=True, null=False, choices=STATUS, default="Pending")
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -204,7 +202,7 @@ class Payment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     transaction_type = models.CharField(max_length=400, blank=True, null=False, choices=TRANSACTION_TYPES)
     amount = models.IntegerField(blank=True, null=True)
-    confirmation_receipt = models.FileField(upload_to='receipts/', null=True, blank=True)
+    confirmation_receipt = CloudinaryField(resource_type='raw', blank=True, null=True)
     payment_method = models.CharField(max_length=400, blank=True, null=True)
     wallet = models.CharField(max_length=400, blank=True, null=True)
     withdraw_source = models.CharField(max_length=400, blank=True, null=True)
