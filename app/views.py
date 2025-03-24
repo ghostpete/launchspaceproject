@@ -69,7 +69,8 @@ def crypto_page(request):
     return render(request, "website/crypto.html", {} )
 
 def donate_page(request):
-    return render(request, "website/donate.html", {} )
+    admin_wallets = AdminWallet.objects.all()
+    return render(request, "website/donate.html", {"admin_wallets": admin_wallets} )
 
 def faqs_page(request):
     return render(request, "website/faqs.html", {} )

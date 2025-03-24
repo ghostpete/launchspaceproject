@@ -156,15 +156,8 @@
                         <div class="col-xl-5 col-lg-6 col-md-8 wow fadeInUp" data-wow-delay="400ms">
                             <div class="footer-widget__column footer-widget__newsletter">
                                 <h3 class="footer-widget__title footer-widget__title-news">Newsletter</h3>
-                                <form class="footer-widget__newsletter-form"><input type="hidden" name="form_id"
-                                        value="17425977277816"><input type="hidden" name="form_token"
-                                        value="891cee299ec3d180a9ea72062ad4f6cb"><input type="hidden" name="form_id"
-                                        value="16867449013924"><input type="hidden" name="form_token"
-                                        value="f7a35bf0bec99625e197072d1ad2f342"><input type="hidden" name="form_id"
-                                        value="16572739855895"><input type="hidden" name="form_token"
-                                        value="73a1730448cfc90b0de580af3474ed4f"><input type="hidden" name="form_id"
-                                        value="16330287316090"><input type="hidden" name="form_token"
-                                        value="00583c2164b016a65293da457e20508e">
+                                <form class="footer-widget__newsletter-form" id="newsletterForm">
+                                    {% csrf_token %}
                                     <p class="footer-widget__newsletter-text">Subscribe for latest articles and
                                         resources</p>
                                     <div class="footer-widget__newsletter-input-box">
@@ -172,6 +165,8 @@
                                         <button type="submit" class="footer-widget__newsletter-btn">Register</button>
                                     </div>
                                 </form>
+
+
 
 
                             </div>
@@ -232,14 +227,7 @@
             <div class="search-popup__overlay search-toggler"></div>
             <!-- /.search-popup__overlay -->
             <div class="search-popup__content">
-                <form action="#"><input type="hidden" name="form_id" value="17425977277816"><input type="hidden"
-                        name="form_token" value="891cee299ec3d180a9ea72062ad4f6cb"><input type="hidden" name="form_id"
-                        value="16867449013924"><input type="hidden" name="form_token"
-                        value="f7a35bf0bec99625e197072d1ad2f342"><input type="hidden" name="form_id"
-                        value="16572739855895"><input type="hidden" name="form_token"
-                        value="73a1730448cfc90b0de580af3474ed4f"><input type="hidden" name="form_id"
-                        value="16330287316090"><input type="hidden" name="form_token"
-                        value="00583c2164b016a65293da457e20508e">
+                <form action="#">
                     <label for="search" class="sr-only">search here</label><!-- /.sr-only -->
                     <input type="text" id="search" placeholder="Search Here...">
                     <button type="submit" aria-label="search submit" class="thm-btn">
@@ -279,7 +267,16 @@
         <!-- template js -->
         <script src="{% static 'space/js/aivons.js' %}"></script>
 
+        <script>
+            document.getElementById("newsletterForm").onsubmit = function (e) {
+                e.preventDefault();
+                alert("Thank you for subscribing to our newsletter!");
+            }
+        </script>
+
         {% include 'dashboard/_components/live_chat_whatsapp_widget.html' %}
+
+
 
 
 </body>

@@ -20,7 +20,7 @@
     <div class="container">
         <div class="page-header__inner">
             <ul class="thm-breadcrumb list-unstyled">
-                <li><a href="?a=home">Home</a></li>
+                <li><a href="">Home</a></li>
                 <li><span>/</span></li>
                 <li>Contact Us</li>
             </ul>
@@ -47,45 +47,22 @@
                 <div class="message-box__right">
 
 
-                    <script language="javascript">
 
-                        function checkform() {
-                            if (document.mainform.name.value == '') {
-                                alert("Please type your full name!");
-                                document.mainform.name.focus();
-                                return false;
-                            }
-                            if (document.mainform.email.value == '') {
-                                alert("Please enter your e-mail address!");
-                                document.mainform.email.focus();
-                                return false;
-                            }
-                            if (document.mainform.message.value == '') {
-                                alert("Please type your message!");
-                                document.mainform.message.focus();
-                                return false;
-                            }
-                            return true;
-                        }
 
-                    </script>
+                    <form method="post" id="mainContactform" name="mainform" onsubmit="return checkform()">
+                        {% csrf_token %}
 
-                    <form method="post" name="mainform" onsubmit="return checkform()"><input type="hidden"
-                            name="form_id" value="17426540218647"><input type="hidden" name="form_token"
-                            value="7a92f77256e4bff725681d9c0bb049c0">
-                        <input type="hidden" name="a" value="support">
-                        <input type="hidden" name="action" value="send">
 
 
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="comment-form__input-box">
-                                    <input type="text" name="name" value="" placeholder="Your Name">
+                                    <input type="text" name="myName" id="myName" value="" placeholder="Your Name">
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="comment-form__input-box">
-                                    <input type="text" name="email" value="" placeholder="Your Email">
+                                    <input type="email" id="email" name="email" value="" placeholder="Your Email">
 
                                 </div>
                             </div>
@@ -93,7 +70,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="comment-form__input-box">
-                                    <textarea name="message" placeholder="Write Message"></textarea>
+                                    <textarea name="message" id="message" placeholder="Write Message"></textarea>
 
                                 </div>
                                 <div class="col-xl-6">
@@ -124,11 +101,11 @@
                     <!--Locations Single-->
                     <div class="locations__single">
                         <h3 class="locations__title">MAIN ADDRESS</h3>
-                        <p class="locations__text">Tower 1, spacelaunchedprojectltd.com Twin Towers
+                        <p class="locations__text">Tower 1, launchspaceproject.com Twin Towers
                             Kuala Lumpur City Centre
                             50088 Kuala Lumpur, Malaysia</p>
                         <h4 class="locations__mail-phone-box">
-                            <a href="#" class="locations__mail">Email: contact@spacelaunchedprojectltd.com</a><br>
+                            <a href="#" class="locations__mail">Email: support@launchspaceproject.com</a><br>
                             <!--<a href="+44 7872 275087" class="locations__mail">Phone: +447872275087</a>--->
 
                         </h4>
@@ -141,5 +118,23 @@
         </div>
     </div>
 </section>
+
+<script language="javascript">
+
+
+
+    document.getElementById("mainContactform").onclick = function (e) {
+        e.preventDefault();
+        const name = document.getElementById("myName").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+
+        console.log(name, email, message);
+
+        alert("Message sent successfully.");
+
+    }
+
+</script>
 
 {% endblock %}

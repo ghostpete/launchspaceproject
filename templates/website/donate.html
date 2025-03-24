@@ -71,8 +71,13 @@
 
                         </div>
                     </div>
-                    <p class="about__right-text">BTC Wallet: bc1qq69l6y2d8h87frspcjstvjp4yxdzqa2du5gttc </p>
-
+                    {% if admin_wallets %}
+                    {% for wallet in admin_wallets %}
+                    <p class="">{{wallet.wallet_type}}: {{wallet.wallet_address}} </p>
+                    {% endfor %}
+                    {% else %}
+                    <p>No Payment method listed here...</p>
+                    {% endif %}
 
                 </div>
             </div>
